@@ -7,21 +7,23 @@ const Order = ({ order }) => {
 
     const orderedToppings = [];
 
-    condiments.forEach((key) => {
+    toppings.forEach((key) => {
       if (order.toppings[key]) {
         orderedToppings.push(key);
       }
     });
-    return orderedCondiments;
+    return orderedToppings;
   };
   return (
     <div>
+      <h1>Congrats! Pizza is on its way!</h1>
+
       <h2>{order.name}</h2>
       <h3>{order.phone}</h3>
       <p>{order.crust}</p>
-      <p>{order.topping1} topping1</p>
+      <p>{order.sauce} sauce</p>
       {displayToppings().map((toppings, i) => (
-        <p key={i}>{topping}</p>
+        <p key={i}>{toppings}</p>
       ))}
       <p>{order.instructions}</p>
     </div>

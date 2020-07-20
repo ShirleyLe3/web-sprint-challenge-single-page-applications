@@ -12,22 +12,34 @@ const schema = yup.object().shape({
     .string()
     .required("Please enter a phone number.")
     .matches(/^[0-9]{10}$/, "Please enter a valid phone number."),
+  //   crust: yup
+  //     .string()
+  //     .required("Please select a crust.")
+  //     .matches(/^[0-9]{10}$/, "Please select a crust."),
+  //   sauce: yup
+  //     .string()
+  //     .required("Please select a sauce.")
+  //     .matches(/^[0-9]{10}$/, "Please select a sauce."),
 });
 
 const defaultFormState = {
   name: "",
   phone: "",
-  bun: "Sesame Seed",
-  patties: "1",
-  condiments: {
-    ketchup: false,
-    mustard: false,
-    mayonaise: false,
-    barbecue: false,
-    lettuce: false,
-    onion: false,
-    cheese: false,
+  crust: "Original",
+  sauce: "classic marinara",
+  toppings: {
+    pepperoni: false,
+    sausage: false,
     bacon: false,
+    onions: false,
+    peppers: false,
+    jalapenos: false,
+    spinach: false,
+    pinneapple: false,
+    mushroom: false,
+    olives: false,
+    tomatoes: false,
+    extracheese: false,
   },
   instructions: "",
 };
@@ -37,7 +49,7 @@ const defaultErrorState = {
   phone: "",
 };
 
-const BurgerForm = (props) => {
+const Form = (props) => {
   const [formState, setFormState] = useState(defaultFormState);
   const [errors, setErrors] = useState(defaultErrorState);
   const [isDisabled, setIsDisabled] = useState(true);
@@ -114,14 +126,14 @@ const BurgerForm = (props) => {
           )}
         </label>
         <label>
-          Select Bun
+          Select Crust
           <select
-            name="topping1"
-            data-cy="topping1"
-            defaultValue="Regular"
+            name="crust"
+            data-cy="crust"
+            defaultValue="Original"
             onChange={handleChange}
           >
-            <option value="Regular">Regular</option>
+            <option value="Original">Original</option>
             <option value="Thin">Thin</option>
             <option value="Thick">Thick</option>
             <option value="Stuffed">Stuffed</option>
@@ -132,42 +144,114 @@ const BurgerForm = (props) => {
             <input
               checked
               type="radio"
-              name="topping1"
+              name="sauce"
               onChange={handleChange}
-              data-cy="1"
-              value="1"
+              data-cy="classic marinara"
+              value="classic marinara"
             />
-            bacon
+            classic marinara
           </label>
           <label>
             <input
               type="radio"
-              name="topping1"
+              name="sauce"
               onChange={handleChange}
-              data-cy="2"
-              value="2"
+              data-cy="garlic ranch"
+              value="garlic ranch"
             />
-            italian
+            garlic ranch
           </label>
           <label>
             <input
               type="radio"
-              name="topping1"
+              name="sauce"
               onChange={handleChange}
-              data-cy="3"
-              value="3"
+              data-cy="BBQ sauce"
+              value="BBQ sauce"
             />
-            pepperoni
+            BBQ sauce
+          </label>
+          <label>
+            <input
+              checked
+              type="radio"
+              name="sauce"
+              onChange={handleChange}
+              data-cy="spinach alfredo"
+              value="spinach alfredo"
+            />
+            spinach alfredo
           </label>
         </fieldset>
+
         <fieldset>
           <label>
             <input
               type="checkbox"
               name="toppings"
               onChange={handleChange}
+              data-cy="pepperoni"
+              value="pepperoni"
+            />
+            pepperoni
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="toppings"
+              onChange={handleChange}
+              data-cy="sausage"
+              value="sausage"
+            />
+            sausage
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="toppings"
+              onChange={handleChange}
+              data-cy="bacon"
+              value="bacon"
+            />
+            bacon
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="toppings"
+              onChange={handleChange}
+              data-cy="chicken"
+              value="chicken"
+            />
+            chicken
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="toppings"
+              onChange={handleChange}
+              data-cy="onions"
+              value="onions"
+            />
+            onions
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="toppings"
+              onChange={handleChange}
+              data-cy="peppers"
+              value="peppers"
+            />
+            peppers
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="toppings"
+              onChange={handleChange}
               data-cy="jalapenos"
-              value="ketchup"
+              value="jalapenos"
             />
             jalapenos
           </label>
@@ -176,8 +260,28 @@ const BurgerForm = (props) => {
               type="checkbox"
               name="toppings"
               onChange={handleChange}
+              data-cy="spinach"
+              value="spinach"
+            />
+            spinach
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="toppings"
+              onChange={handleChange}
+              data-cy="pinneapple"
+              value="pinneapple"
+            />
+            pinneapple
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="toppings"
+              onChange={handleChange}
               data-cy="mushrooms"
-              value="mustard"
+              value="mushrooms"
             />
             mushrooms
           </label>
@@ -187,9 +291,19 @@ const BurgerForm = (props) => {
               name="toppings"
               onChange={handleChange}
               data-cy="olives"
-              value="mayonaise"
+              value="olives"
             />
             olives
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="toppings"
+              onChange={handleChange}
+              data-cy="tomatoes"
+              value="tomatoes"
+            />
+            tomatoes
           </label>
         </fieldset>
         <label>
@@ -201,7 +315,7 @@ const BurgerForm = (props) => {
           />
         </label>
         <button data-cy="submit-button" disabled={isDisabled} type="submit">
-          Order Your Burger
+          Order Your Pizza
         </button>
       </form>
     </FormContainer>
