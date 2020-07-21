@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import * as yup from "yup";
 import styled from "styled-components";
 import axios from "axios";
 
 const schema = yup.object().shape({
+  // validation
   name: yup
     .string()
     .required("Please enter your name")
@@ -55,13 +57,13 @@ const Form = (props) => {
   const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
-    schema.isValid(formState).then((valid) => setIsDisabled(!valid));
+    schema.isValid(formState).then((valid) => setIsDisabled(!valid)); // validation
   }, [formState, schema]);
 
   const validate = (e) => {
     e.persist();
     yup
-      .reach(schema, e.target.name)
+      .reach(schema, e.target.name) // validation
       .validate(e.target.value)
       .then((valid) => setErrors({ ...errors, [e.target.name]: "" }))
       .catch((err) => setErrors({ ...errors, [e.target.name]: err.errors[0] }));
@@ -99,46 +101,51 @@ const Form = (props) => {
   return (
     <FormContainer>
       <form onSubmit={handleSubmit}>
-        <label>
-          Name
-          <input
-            type="text"
-            name="name"
-            onChange={handleChange}
-            data-cy="name"
-            value={formState.name}
-          />
-          {errors.name.length > 0 && (
-            <p style={{ color: "red" }}>{errors.name}</p>
-          )}
-        </label>
-        <label>
-          Phone Number
-          <input
-            type="tel"
-            name="phone"
-            onChange={handleChange}
-            data-cy="phone"
-            value={formState.phone}
-          />
-          {errors.phone.length > 0 && (
-            <p style={{ color: "red" }}>{errors.phone}</p>
-          )}
-        </label>
-        <label>
-          Select Crust
-          <select
-            name="crust"
-            data-cy="crust"
-            defaultValue="Original"
-            onChange={handleChange}
-          >
-            <option value="Original">Original</option>
-            <option value="Thin">Thin</option>
-            <option value="Thick">Thick</option>
-            <option value="Stuffed">Stuffed</option>
-          </select>
-        </label>
+        <div id="header">
+          <h2>Create Your Pizza!</h2>
+        </div>
+        <div id="Order-Information">
+          <label>
+            Name
+            <input
+              type="text"
+              name="name"
+              onChange={handleChange}
+              data-cy="name"
+              value={formState.name}
+            />
+            {errors.name.length > 0 && (
+              <p style={{ color: "red" }}>{errors.name}</p>
+            )}
+          </label>
+          <label>
+            Phone Number
+            <input
+              type="tel"
+              name="phone"
+              onChange={handleChange}
+              data-cy="phone"
+              value={formState.phone}
+            />
+            {errors.phone.length > 0 && (
+              <p style={{ color: "red" }}>{errors.phone}</p>
+            )}
+          </label>
+          <label>
+            Select Crust
+            <select
+              name="crust"
+              data-cy="crust"
+              defaultValue="Original"
+              onChange={handleChange}
+            >
+              <option value="Original">Original</option>
+              <option value="Thin">Thin</option>
+              <option value="Thick">Thick</option>
+              <option value="Stuffed">Stuffed</option>
+            </select>
+          </label>
+        </div>
         <fieldset>
           <label>
             <input
@@ -149,7 +156,7 @@ const Form = (props) => {
               data-cy="classic marinara"
               value="classic marinara"
             />
-            classic marinara
+            Classic Marinara
           </label>
           <label>
             <input
@@ -159,7 +166,7 @@ const Form = (props) => {
               data-cy="garlic ranch"
               value="garlic ranch"
             />
-            garlic ranch
+            Garlic Ranch
           </label>
           <label>
             <input
@@ -169,7 +176,7 @@ const Form = (props) => {
               data-cy="BBQ sauce"
               value="BBQ sauce"
             />
-            BBQ sauce
+            BBQ Sauce
           </label>
           <label>
             <input
@@ -180,11 +187,12 @@ const Form = (props) => {
               data-cy="spinach alfredo"
               value="spinach alfredo"
             />
-            spinach alfredo
+            Spinach Alfredo
           </label>
         </fieldset>
 
         <fieldset>
+          {/* <div class="toppings"> */}
           <label>
             <input
               type="checkbox"
@@ -255,6 +263,8 @@ const Form = (props) => {
             />
             jalapenos
           </label>
+          {/* </div> */}
+          {/* <div class="toppings"> */}
           <label>
             <input
               type="checkbox"
@@ -305,6 +315,7 @@ const Form = (props) => {
             />
             tomatoes
           </label>
+          {/* </div> */}
         </fieldset>
         <label>
           <textarea
@@ -312,10 +323,12 @@ const Form = (props) => {
             data-cy="instructions"
             onChange={handleChange}
             value={formState.instructions}
+            placeholder="Anything else you'd like to add?"
           />
         </label>
-        <button data-cy="submit-button" disabled={isDisabled} type="submit">
-          Order Your Pizza
+
+        <button data-cy="submit-button" onClick={Link} type="submit">
+          Submit Order
         </button>
       </form>
     </FormContainer>
@@ -325,9 +338,52 @@ const Form = (props) => {
 const FormContainer = styled.div`
   margin: 5rem auto;
   width: 900px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   color: #fff;
+  #header {
+    text-align: center;
+    background: url(https://www.kingarthurbaking.com/sites/default/files/styles/featured_image/public/recipe_legacy/20-3-large.jpg?itok=1EY8KWJG);
+    background-position: center;
+    height: 20vh;
+    width: 700px;
+  }
+  label {
+    width: 60%;
+    margin: 2% 4%;
+  }
+  fieldset {
+    display: flex;
+    flex-direction: column;
+  }
+  //   .toppings {
+  //     display: flex;
+  //     flex-direction: column
+  //     color: purple;
+  //   }
+
+  #Order-Information {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 8% 0%;
+    height: 20vh;
+  }
+  textarea {
+    width: 80%;
+    margin: 2%;
+  }
+  button {
+    display: flex;
+    margin: 0 auto;
+    padding: 1%;
+    color: black;
+  }
+  select {
+    height: 40px;
+    width: 90%;
+  }
 `;
 
 export default Form;

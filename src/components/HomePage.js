@@ -18,6 +18,10 @@ const HomePage = (props) => {
 };
 
 const HomeContainer = styled.div`
+  background: url(https://media1.popsugar-assets.com/files/thumbor/oYivacUQxsjybVn80tgpJo2bahw/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2015/06/10/017/n/1922398/bc378e5c_shutterstock_93720934.jpg);
+  background-repeat: no-repeat, repeat;
+  background-size: 1600px 1200px;
+  background-position: center;
   width: 100%;
   overflow: hidden;
   display: flex;
@@ -30,7 +34,7 @@ const HomeContainer = styled.div`
     justify-content: center;
     align-items: center;
     h1 {
-      color: #fff;
+      color: white;
       margin-top: 5rem;
       font-size: 3.6rem;
       padding: 20px;
@@ -45,7 +49,8 @@ const HomeContainer = styled.div`
     color: #fff;
     margin: 5rem 0 5rem 0;
     &:hover {
-      background: rgba(255, 255, 255, 0.05);
+      background: black;
+      color: red;
     }
   }
   div {

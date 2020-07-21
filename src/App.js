@@ -1,31 +1,32 @@
 import React, { useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
-import Navr from "./components/Nav";
+import Nav from "./components/Nav";
 import Form from "./components/Form";
+// import Order from "./components/Order";
 import HomePage from "./components/HomePage";
 
 const App = () => {
-
   const [orders, setOrders] = useState([]);
 
-  const addOrder = order => {
+  const addOrder = (order) => {
     setOrders([...orders, order]);
-  }
+  };
 
   return (
     <AppContainer>
-      <NavBar />
+      <Nav />
       <Switch>
-        <Route path='/buildaburger'>
+        <Route path="/Pizza">
           <Form addOrder={addOrder} />
         </Route>
-        <Route exact path='/'>
-        <>
-        <h1>Lambda Eats</h1>
-        <p>Create Your Pizza</p>
-      </>
+        <Route exact path="/">
+          <>
+            <h1>Lambda Eats</h1>
+            <p>Create Your Pizza</p>
+          </>
           <HomePage orders={orders} />
+          // link to Order
         </Route>
       </Switch>
     </AppContainer>
@@ -34,10 +35,6 @@ const App = () => {
 
 const AppContainer = styled.div`
   background: #000;
-`
+`;
 
-  return (
-
-  );
-};
 export default App;
